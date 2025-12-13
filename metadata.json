@@ -1,0 +1,5 @@
+{
+  "name": "PRISM",
+  "description": "A financial probability engine that refracts your portfolio into thousands of potential futures to visualize risk and return.",
+  "requestFramePermissions": []
+}
