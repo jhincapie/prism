@@ -1,8 +1,8 @@
 
-import { Bucket } from './models/Bucket';
+import { Bucket } from './models/buckets';
 
-export type { BucketType, BucketData } from './models/Bucket';
-export { Bucket, InvestmentBucket, CashBucket, StockBucket, RealEstateBucket, BitcoinBucket, OtherBucket, BucketFactory } from './models/Bucket';
+export type { BucketType, BucketData } from './models/buckets';
+export { Bucket, InvestmentBucket, CashBucket, StockBucket, RealEstateBucket, BitcoinBucket, OtherBucket, BucketFactory } from './models/buckets';
 
 export interface SimulationParams {
   years: number;

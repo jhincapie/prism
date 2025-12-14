@@ -1,5 +1,5 @@
 
-import { Bucket, BitcoinBucket } from '../models/Bucket';
+import { Bucket, BitcoinBucket } from '../models/buckets';
 
 /**
  * Calculates the projected mean return for a bucket for a specific year.
