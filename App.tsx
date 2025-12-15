@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import PortfolioInputForm from './components/PortfolioInputForm';
 import SimulationChart from './components/SimulationChart';
 import StatisticsDisplay from './components/StatisticsDisplay';
-import EconomicContext from './components/EconomicContext'; 
+import EconomicContext from './components/EconomicContext';
 import MilestoneAnalysis from './components/MilestoneAnalysis';
 import FireAnalysis from './components/FireAnalysis';
 import GeminiIcon from './components/icons/GeminiIcon';
@@ -204,7 +204,7 @@ const App: React.FC = () => {
         // 2. Protected Share (Standard encrypted payload)
         if (payload && salt) {
             setEncryptedData({ payload, salt });
-            
+
             // Auto-unlock check
             const savedPassword = localStorage.getItem(PASSWORD_STORAGE_KEY);
             if (savedPassword) {
@@ -218,13 +218,13 @@ const App: React.FC = () => {
                     setHasSavedPassword(false);
                 }
             }
-            
+
             // Show Lock Screen
             setIsLocked(true);
             setIsInitializing(false);
             return;
         }
-        
+
         // 3. Standard Load (Local Storage or Defaults)
         const { params: initialParams, excludeIlliquid } = await getStandardParams();
         setParams(initialParams);
@@ -237,9 +237,9 @@ const App: React.FC = () => {
   const handleUnlock = async (password: string, remember: boolean) => {
       if (!encryptedData) return;
       setUnlockError(false);
-      
+
       const decrypted = await decryptWithPassword(encryptedData.payload, password, encryptedData.salt);
-      
+
       if (decrypted && processDecryptedJson(decrypted)) {
           if (remember) {
               localStorage.setItem(PASSWORD_STORAGE_KEY, password);
@@ -283,7 +283,7 @@ const App: React.FC = () => {
             setAiAnalysis(null);
             setAnalysisError(null);
             analysisCache.current.clear();
-            
+
             if (activeResultsTabRef.current === 'context') {
                 setActiveResultsTab('simulation');
             }
@@ -302,7 +302,7 @@ const App: React.FC = () => {
       setAiAnalysis(null);
       setAnalysisError(null);
       analysisCache.current.clear();
-      
+
       if (activeResultsTab === 'context') {
           setActiveResultsTab('simulation');
       }
@@ -353,7 +353,7 @@ const App: React.FC = () => {
 
   const performSafeExit = useCallback(() => {
     setExitState('animating');
-    
+
     setTimeout(() => {
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem(PASSWORD_STORAGE_KEY);
@@ -506,10 +506,10 @@ const App: React.FC = () => {
         setAnalysisError("Cannot generate analysis for a portfolio with zero median value.");
         return;
       }
-      
+
       setAnalysisIsLoading(true);
       setAnalysisError(null);
-      
+
       try {
         const { getEconomicAnalysis } = await import('./services/economicAnalysis');
         const result = await getEconomicAnalysis(median, simulationResult.paramsUsed.years, country);
@@ -585,8 +585,8 @@ const App: React.FC = () => {
             <div>
                  <span className="block text-slate-500 text-xs uppercase tracking-wider">Mode</span>
                  <span className="text-slate-200 font-semibold">
-                    {params.stressTestScenarioId 
-                        ? `Stress: ${params.stressTestScenarioId}` 
+                    {params.stressTestScenarioId
+                        ? `Stress: ${params.stressTestScenarioId}`
                         : params.isDynamicMode ? 'Dynamic (Crisis)' : 'Standard'}
                  </span>
             </div>
@@ -610,7 +610,7 @@ const App: React.FC = () => {
           <p><strong>Error:</strong> {error}</p>
         </div>
       )}
-      
+
       {!isLoading && !error && simulationResult && (
         <div className="w-full flex flex-col gap-8">
             <div className="export-hide border-b border-slate-700 flex flex-col sm:flex-row justify-between items-end sm:items-center gap-4 pb-0">
@@ -663,8 +663,8 @@ const App: React.FC = () => {
 
             {activeResultsTab === 'simulation' && (
             <>
-                <SimulationChart 
-                    data={simulationResult.paths} 
+                <SimulationChart
+                    data={simulationResult.paths}
                     isInflationAdjusted={isInflationAdjusted}
                     inflationRate={params.inflationRate}
                     comparisonResult={comparisonResult}
@@ -681,8 +681,8 @@ const App: React.FC = () => {
                     setShowRandomPaths={setShowRandomPaths}
                     benchmarkPaths={simulationResult.benchmarkPaths}
                 />
-                <StatisticsDisplay 
-                  statistics={simulationResult.statistics} 
+                <StatisticsDisplay
+                  statistics={simulationResult.statistics}
                   totalSimulations={params.simulations}
                   paths={simulationResult.paths}
                   finalCompositions={simulationResult.finalCompositions}
@@ -705,7 +705,7 @@ const App: React.FC = () => {
           )}
 
           {activeResultsTab === 'milestone' && (
-              <MilestoneAnalysis 
+              <MilestoneAnalysis
                   paths={simulationResult.paths}
                   years={simulationResult.paramsUsed.years}
                   isInflationAdjusted={isInflationAdjusted}
@@ -744,7 +744,7 @@ const App: React.FC = () => {
               withdrawalReturn={params.withdrawalReturn}
             />
           )}
-          
+
           <div className="export-hide mt-8 pt-4 border-t border-slate-700/50 text-center">
              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wide">Generated by PRISM</p>
           </div>
